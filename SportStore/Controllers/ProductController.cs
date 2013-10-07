@@ -12,7 +12,8 @@ namespace SportStore.Controllers
 
         public ActionResult List()
         {
-            return View(productRepository.Products.ToList());
+            var products = productRepository.Products.ToList();
+            return View(products);
         }
 
     }
