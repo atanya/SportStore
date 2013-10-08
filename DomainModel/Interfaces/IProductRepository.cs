@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using DomainModel.DAL;
 
-namespace DomainModel.Abstract
+namespace DomainModel.Interfaces
 {
     public interface IProductRepository
     {

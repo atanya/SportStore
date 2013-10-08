@@ -1,14 +1,17 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using DomainModel.Abstract;
-using DomainModel.Repositories;
+using DomainModel.Interfaces;
 
 namespace SportStore.Controllers
 {
     public class ProductController : Controller
     {
-        //temporary
-        private IProductRepository productRepository = new ProductRepository();
+        private readonly IProductRepository productRepository;
+
+        public ProductController(IProductRepository productRepository)
+        {
+            this.productRepository = productRepository;
+        }
 
         public ActionResult List()
         {

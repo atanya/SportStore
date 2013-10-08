@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using DomainModel.Abstract;
+using DomainModel.Interfaces;
 
 namespace DomainModel.Repositories
 {

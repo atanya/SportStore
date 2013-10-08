@@ -1,6 +1,4 @@
-﻿using System.Data.Entity;
-
-namespace DomainModel.Abstract
+﻿namespace DomainModel.Interfaces
 {
     interface IBaseRepository<T> where T: class
     {

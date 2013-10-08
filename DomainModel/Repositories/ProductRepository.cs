@@ -2,8 +2,8 @@
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
-using DomainModel.Abstract;
 using DomainModel.DAL;
+using DomainModel.Interfaces;
 
 namespace DomainModel.Repositories
 {
@@ -14,11 +14,12 @@ namespace DomainModel.Repositories
             get { return Context.Set<Product>(); }
         }
 
-        public ProductRepository(DbContext dbContext) : base(dbContext)
+        internal ProductRepository(DbContext dbContext) : base(dbContext)
         {
         }
-        public ProductRepository()
-            : base(new DbContext(@"data source=TANYA-PC\sqlexpress;initial catalog=SportStore;persist security info=True;user id=tanya;password=tanya_;MultipleActiveResultSets=True;App=EntityFramework"))
+
+        public ProductRepository(string connectionString)
+            : this(new DbContext(connectionString))
         {
         }
     }
