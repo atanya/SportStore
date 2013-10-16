@@ -14,6 +14,53 @@ namespace Tests
             TestRoute("/", new {controller = "Product", action = "List", category = (string) null, pageNumber = 1});
         }
 
+        [Test]
+        public void Page2GoesToAllProductsPage2()
+        {
+            TestRoute("~/Page2", new
+                {
+                    controller = "Product",
+                    action = "List",
+                    category = (string) null,
+                    pageNumber = 2
+                });
+        }
+
+        [Test]
+        public void FootballGoesToFootballPage1()
+        {
+            TestRoute("~/Football", new
+                {
+                    controller = "Product",
+                    action = "List",
+                    category = "Football",
+                    pageNumber = 1
+                });
+        }
+
+        [Test]
+        public void FootballPage43GoesToFootballPage43()
+        {
+            TestRoute("~/Football/Page43", new
+            {
+                controller = "Product",
+                action = "List",
+                category = "Football",
+                pageNumber = 43
+            });
+        }
+
+        [Test]
+        public void AnythingSlashElseGoesToELseOnAnythingController()
+        {
+
+            TestRoute("~/Anything/Else", new
+            {
+                controller = "Anything",
+                action = "Else"
+            });
+        }
+
         private void TestRoute(string url, object expectedValues)
         {
             RouteCollection routes = new RouteCollection();
@@ -34,7 +81,7 @@ namespace Tests
             {
                 if (expectedVal.Value == null)
                 {
-                    Assert.IsNotNull(routeData.Values[expectedVal.Key]);
+                    Assert.IsNull(routeData.Values[expectedVal.Key]);
                 }
                 else
                 {
