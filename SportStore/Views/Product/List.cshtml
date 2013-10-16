@@ -1,5 +1,5 @@
 ﻿@using SportStore.HtmlHelpers;
-@model IEnumerable<DomainModel.DAL.Product>
+@model SportStore.Models.ProductListViewModel
 
 @{
     ViewBag.Title = "List";
@@ -8,10 +8,10 @@
 
 <h2>List</h2>
 
-@foreach (var product in Model)
+@foreach (var product in Model.Products)
 {
     Html.RenderPartial("ProductSummary", product);
 }
 <div class="pager">
-    Page: @Html.PagingLinks((int)ViewData["CurrentPage"], (int)ViewData["TotalPages"], x =>Url.Action("List", new {pageNumber = x}))
+    Page: @Html.PagingLinks(Model.CurrentPage, Model.TotalPagesCount, x =>Url.Action("List", new {pageNumber = x, category = Model.CurrentCategory}))
 </div>

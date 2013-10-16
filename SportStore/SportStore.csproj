@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="HtmlHelpers\HtmlHelpers.cs" />
     <Compile Include="IoC\WindsorControllerFactory.cs" />
+    <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -137,7 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

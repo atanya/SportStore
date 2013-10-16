@@ -5,7 +5,7 @@ using SportStore.HtmlHelpers;
 namespace Tests
 {
     [TestFixture]
-    public class PagingHelerTests
+    public class PagingHelperTests
     {
         [Test]
         public void PageLinksHtmlHelperTest()

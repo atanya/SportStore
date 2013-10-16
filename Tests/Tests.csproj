@@ -49,7 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PagingHelerTests.cs" />
+    <Compile Include="InboundRoutingTests.cs" />
+    <Compile Include="PagingHelperTests.cs" />
     <Compile Include="ProductControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
