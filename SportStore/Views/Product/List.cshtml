@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DomainModel.DAL.Product>
+﻿@using SportStore.HtmlHelpers;
+@model IEnumerable<DomainModel.DAL.Product>
 
 @{
     ViewBag.Title = "List";
@@ -15,3 +16,6 @@
         <h4>@product.Price.ToString("c")</h4>
     </div>
 }
+<div class="pager">
+    Page: @Html.PagingLinks((int)ViewData["CurrentPage"], (int)ViewData["TotalPages"], x =>Url.Action("List", new {pageNumber = x}))
+</div>

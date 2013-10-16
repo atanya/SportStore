@@ -12,10 +12,14 @@ namespace SportStore
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(null,
+                            "",
+                            new { controller = "Product", action = "List", pageNumber = 1 });
 
-            routes.MapRoute("Default",
-                            "{controller}/{action}/{id}",
-                            new { controller = "Product", action = "List", id = "" });
+            routes.MapRoute(null,
+                            "Page{pageNumber}",
+                            new {controller = "Product", action = "List"},
+                            new { pageNumber = @"\d+" });
         }
     }
 }
