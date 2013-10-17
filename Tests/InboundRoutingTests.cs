@@ -11,7 +11,7 @@ namespace Tests
         [Test]
         public void SlashGoesToAllProductsPage()
         {
-            TestRoute("/", new {controller = "Product", action = "List", category = (string) null, pageNumber = 1});
+            TestRoute("~/", new {controller = "Product", action = "List", category = (string) null, pageNumber = 1});
         }
 
         [Test]

@@ -8,7 +8,7 @@ namespace SportStore.Models
 
         public int CurrentPage { get; set; }
 
-        public int CurrentCategory { get; set; }
+        public string CurrentCategory { get; set; }
 
         public int TotalPagesCount { get; set; }
     }

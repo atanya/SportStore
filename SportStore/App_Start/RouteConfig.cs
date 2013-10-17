@@ -12,14 +12,36 @@ namespace SportStore
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.MapRoute(null,
-                            "",
-                            new { controller = "Product", action = "List", pageNumber = 1 });
 
             routes.MapRoute(null,
-                            "Page{pageNumber}",
-                            new {controller = "Product", action = "List"},
-                            new { pageNumber = @"\d+" });
+                            "", // Only matches the empty URL (i.e. /)
+                            new
+                                {
+                                    controller = "Product",
+                                    action = "List",
+                                    category = (string) null,
+                                    pageNumber = 1
+                                }
+                );
+
+            routes.MapRoute(null,
+                            "Page{pageNumber}", // Matches /Page2, /Page123, but not /PageXYZ
+                            new {controller = "Product", action = "List", category = (string) null},
+                            new { pageNumber = @"\d+" } // Constraints: page must be numerical
+                );
+
+            routes.MapRoute(null,
+                            "{category}", // Matches /Football or /AnythingWithNoSlash
+                            new {controller = "Product", action = "List", pageNumber = 1}
+                );
+
+            routes.MapRoute(null,
+                            "{category}/Page{pageNumber}", // Matches /Football/Page567
+                            new {controller = "Product", action = "List"}, // Defaults
+                            new { pageNumber = @"\d+" } // Constraints: page must be numerical
+                );
+
+            routes.MapRoute(null, "{controller}/{action}");
         }
     }
 }

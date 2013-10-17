@@ -16,7 +16,7 @@ namespace SportStore.Controllers
             this.productRepository = productRepository;
         }
 
-        public ViewResult List(int pageNumber, string category)
+        public ViewResult List(string category, int pageNumber)
         {
             var products =
                 productRepository.Products

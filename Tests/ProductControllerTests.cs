@@ -23,7 +23,7 @@ namespace Tests
 
             var productsController = new ProductController(productRepository) {PageSize = pageSize};
 
-            var result = productsController.List(pageNumber, null);
+            var result = productsController.List(null, pageNumber);
 
             Assert.IsNotNull(result, "Didn't render the view");
 
@@ -61,7 +61,7 @@ namespace Tests
 
             var productsController = new ProductController(productRepository) { PageSize = 3 };
 
-            var result = ((ProductListViewModel)productsController.List(1, cathegory).Model);
+            var result = ((ProductListViewModel)productsController.List(cathegory, 1).Model);
             var poducts = result.Products.ToArray();
 
             Assert.AreEqual(totalPagesCount, result.TotalPagesCount);

@@ -13,5 +13,5 @@
     Html.RenderPartial("ProductSummary", product);
 }
 <div class="pager">
-    Page: @Html.PagingLinks(Model.CurrentPage, Model.TotalPagesCount, x =>Url.Action("List", new {pageNumber = x, category = Model.CurrentCategory}))
+    Page: @Html.PagingLinks(Model.CurrentPage, Model.TotalPagesCount, x =>Url.Action("List", new {category = Model.CurrentCategory, pageNumber = x}))
 </div>
