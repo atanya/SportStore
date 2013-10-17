@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model SportStore.Models.ProductListViewModel
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -8,10 +9,10 @@
 </head>
     <body>
         <div id="header">
-            <div class="title">SPORTS STORE</div>
+            <div class="title">SPORTS STORE  <span class="subtitle">@(string.IsNullOrEmpty(Model.CurrentCategory)? "" : Model.CurrentCategory)</span></div>
         </div>
         <div id="categories">
-            @{ Html.RenderAction("Menu", "Navigation");}
+            @{ Html.RenderAction("Menu", "Navigation", new { selectedCategory = Model.CurrentCategory });}
         </div>
         <div id="content">
             @RenderBody()

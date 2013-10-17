@@ -17,15 +17,19 @@ namespace SportStore.Controllers
             productRepository = productRepo;
         }
 
-        public ViewResult Menu()
+        public ViewResult Menu(string selectedCategory)
         {
-            var navLinks = new List<NavigationLink> {new CategoryLink(null)};
+            var navLinks = new List<NavigationLink>
+                {
+                    new CategoryLink(null) {IsSelected = string.IsNullOrEmpty(selectedCategory)}
+                };
 
             var categories = productRepository.Products.Select(x => x.Category).Distinct().OrderBy(x => x);
             foreach (var category in categories)
             {
-                navLinks.Add(new CategoryLink(category));
+                navLinks.Add(new CategoryLink(category) {IsSelected = category == selectedCategory});
             }
+            ViewData["category"] = selectedCategory;
             return View(navLinks);
         }
     }

@@ -31,7 +31,7 @@ namespace Tests
 
             var navController = new NavigationController(mockProductRepo.Object);
 
-            ViewResult result = navController.Menu();
+            ViewResult result = navController.Menu(null);
 
             var links = ((IEnumerable<NavigationLink>)result.ViewData.Model).ToList();
             Assert.IsEmpty(result.ViewName);
@@ -41,6 +41,26 @@ namespace Tests
             Assert.AreEqual("Animal", links[1].Text);
             Assert.AreEqual("Mineral", links[2].Text);
             Assert.AreEqual("Vegetable", links[3].Text);
+        }
+
+        [Test]
+        public void HilightCurrentCategory()
+        {
+            var products = new[]
+                {
+                    new Product {Name = "A", Category = "Animal"},
+                    new Product {Name = "B", Category = "Vegetable"}
+                }.AsQueryable();
+            var mockProductRepo = new Moq.Mock<IProductRepository>();
+            mockProductRepo.Setup(x => x.Products).Returns(products);
+
+            var navController = new NavigationController(mockProductRepo.Object);
+
+            ViewResult result = navController.Menu("Vegetable");
+
+            var hilightedLinks = ((IEnumerable<NavigationLink>) result.ViewData.Model).Where(x => x.IsSelected).ToList();
+            Assert.AreEqual(1, hilightedLinks.Count);
+            Assert.AreEqual("Vegetable", hilightedLinks[0].Text);
         }
     }
 }

@@ -7,6 +7,10 @@ div#header div.title, div.item h3, div.item h4, div.pager a {
     font: bold 1em "Arial Narrow", "Franklin Gothic Medium", Arial;
 }
 
+.subtitle {
+    font-size: large;
+}
+
 div#header {
     background-color: #444;
     border-bottom: 2px solid #111;
