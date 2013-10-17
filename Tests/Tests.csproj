@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InboundRoutingTests.cs" />
+    <Compile Include="NavigationControllerTests.cs" />
     <Compile Include="PagingHelperTests.cs" />
     <Compile Include="ProductControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

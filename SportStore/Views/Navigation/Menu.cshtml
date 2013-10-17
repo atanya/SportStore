@@ -1,0 +1,6 @@
+﻿@model IEnumerable<SportStore.Models.NavigationLink>
+
+@foreach (var link in Model)
+{
+    <a href="@Url.RouteUrl(link.RouteValues)">@link.Text</a>
+}

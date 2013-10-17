@@ -32,7 +32,8 @@ namespace SportStore.Controllers
                 {
                     Products = products,
                     CurrentPage = pageNumber,
-                    TotalPagesCount = totalPagesCount
+                    TotalPagesCount = totalPagesCount,
+                    CurrentCategory = category
                 };
 
             return View(viewModel);
