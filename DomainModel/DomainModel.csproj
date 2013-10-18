@@ -47,13 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\Cart.cs">
+      <DependentUpon>SportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\CartLine.cs">
+      <DependentUpon>SportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Product.cs">
+      <DependentUpon>SportStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IProductRepository.cs" />
-    <Compile Include="DAL\Product.cs">
-      <DependentUpon>SportStore.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\SportStore.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

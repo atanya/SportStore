@@ -4,8 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d565bfca50a94c1d901740a72196d679" Name="Diagram1" >
+      <Diagram DiagramId="d565bfca50a94c1d901740a72196d679" Name="Diagram1" DisplayType="true" >
         <EntityTypeShape EntityType="SportStore.Product" Width="1.5" PointX="3.125" PointY="0.75" />
+        <EntityTypeShape EntityType="SportStore.Cart" PointX="5.75" PointY="3.25" Width="1.5" />
+        <EntityTypeShape EntityType="SportStore.CartLine" Width="1.5" PointX="7.875" PointY="2.375" />
+        <AssociationConnector Association="SportStore.ProductCartLine" />
+        <AssociationConnector Association="SportStore.CartCartLine" />
+        <AssociationConnector Association="SportStore.FK_ProductCartLine" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

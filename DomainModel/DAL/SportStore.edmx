@@ -6,8 +6,33 @@
     <edmx:StorageModels>
     <Schema Namespace="SportStore.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SportStoreStoreContainer">
+          <EntitySet Name="CartLines" EntityType="SportStore.Store.CartLines" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Carts" EntityType="SportStore.Store.Carts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Products" EntityType="SportStore.Store.Products" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_CartCartLine" Association="SportStore.Store.FK_CartCartLine">
+            <End Role="Carts" EntitySet="Carts" />
+            <End Role="CartLines" EntitySet="CartLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCartLine" Association="SportStore.Store.FK_ProductCartLine">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="CartLines" EntitySet="CartLines" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CartLines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="CartId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="Id" />
@@ -18,12 +43,50 @@
           <Property Name="Category" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Price" Type="decimal" Nullable="false" Precision="16" Scale="2" />
         </EntityType>
+        <Association Name="FK_CartCartLine">
+          <End Role="Carts" Type="SportStore.Store.Carts" Multiplicity="1" />
+          <End Role="CartLines" Type="SportStore.Store.CartLines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CartLines">
+              <PropertyRef Name="CartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCartLine">
+          <End Role="Products" Type="SportStore.Store.Products" Multiplicity="1" />
+          <End Role="CartLines" Type="SportStore.Store.CartLines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CartLines">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="SportStore" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="SportStoreContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="SportStore.Product" />
+          <EntitySet Name="Carts" EntityType="SportStore.Cart" />
+          <EntitySet Name="CartLines" EntityType="SportStore.CartLine" />
+          <AssociationSet Name="ProductCartLine" Association="SportStore.ProductCartLine">
+            <End EntitySet="Products" Role="Product" />
+            <End EntitySet="CartLines" Role="CartLine" />
+          </AssociationSet>
+          <AssociationSet Name="CartCartLine" Association="SportStore.CartCartLine">
+            <End EntitySet="Carts" Role="Cart" />
+            <End EntitySet="CartLines" Role="CartLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCartLine" Association="SportStore.FK_ProductCartLine">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="CartLine" EntitySet="CartLines" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -34,7 +97,62 @@
           <Property Type="String" Name="Description" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Type="String" Name="Category" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="16" Scale="2" />
+          <NavigationProperty Name="CartLines" Relationship="SportStore.FK_ProductCartLine" FromRole="Product" ToRole="CartLine" />
         </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" Type="Int32" />
+          <NavigationProperty Name="Lines" Relationship="SportStore.CartCartLine" FromRole="Cart" ToRole="CartLine" />
+        </EntityType>
+        <EntityType Name="CartLine" >
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Quantity" Nullable="false" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="SportStore.ProductCartLine" FromRole="CartLine" ToRole="Product" />
+          <Property Name="ProductId" Nullable="false" Type="Int32" />
+          <Property Type="Int32" Name="CartId" Nullable="false" />
+          <NavigationProperty Name="Product1" Relationship="SportStore.FK_ProductCartLine" FromRole="CartLine" ToRole="Product" />
+        </EntityType>
+        <Association Name="ProductCartLine">
+          <End Type="SportStore.Product" Multiplicity="1" Role="Product" />
+          <End Type="SportStore.CartLine" Multiplicity="*" Role="CartLine" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CartLine">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CartCartLine">
+          <End Type="SportStore.Cart" Multiplicity="1" Role="Cart" />
+          <End Type="SportStore.CartLine" Multiplicity="*" Role="CartLine" />
+          <ReferentialConstraint>
+            <Principal Role="Cart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CartLine">
+              <PropertyRef Name="CartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCartLine">
+          <End Type="SportStore.Product" Role="Product" Multiplicity="1" />
+          <End Type="SportStore.CartLine" Role="CartLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CartLine">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -49,6 +167,23 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Category" ColumnName="Category" />
           <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="IsTypeOf(SportStore.Cart)">
+        <MappingFragment StoreEntitySet="Carts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CartLines">
+      <EntityTypeMapping TypeName="IsTypeOf(SportStore.CartLine)">
+        <MappingFragment StoreEntitySet="CartLines">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="CartId" ColumnName="CartId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

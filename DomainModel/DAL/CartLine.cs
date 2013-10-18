@@ -12,19 +12,14 @@ namespace DomainModel.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class CartLine
     {
-        public Product()
-        {
-            this.CartLines = new HashSet<CartLine>();
-        }
-    
+        public int Quantity { get; set; }
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Category { get; set; }
-        public decimal Price { get; set; }
+        public int ProductId { get; set; }
+        public int CartId { get; set; }
     
-        public virtual ICollection<CartLine> CartLines { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Product Product1 { get; set; }
     }
 }
