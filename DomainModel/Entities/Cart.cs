@@ -17,5 +17,10 @@ namespace DomainModel.DAL
         {
             throw new NotImplementedException();
         }
+
+        public object ComputeTotalValue()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
